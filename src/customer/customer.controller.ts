@@ -8,28 +8,23 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { MainStoreService } from './main-store.service';
-import { MainStoreEntity } from './entities/main-store.entity';
+import { CustomerService } from './customer.service';
+import { CustomerEntity } from './customer.entity/customer.entity';
 import { ResponseHelper } from 'helper/common/response.helper';
 import { ApiResponse } from 'helper/common/response.interface';
 import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 
-@Controller('main-store')
-export class MainStoreController {
-  constructor(private readonly mainStoreService: MainStoreService) {}
+@Controller('customer')
+export class CustomerController {
+  constructor(private readonly customerService: CustomerService) {}
 
   @Post()
   async create(
-    @Body() item: MainStoreEntity,
-  ): Promise<ApiResponse<MainStoreEntity>> {
+    @Body() item: CustomerEntity,
+  ): Promise<ApiResponse<CustomerEntity>> {
     try {
-      const findUSer = await this.mainStoreService.findByPhone(item.phone);
-      if (findUSer.length == 0) {
-        const res = await this.mainStoreService.create(item);
-        return ResponseHelper.success(res);
-      } else {
-        return ResponseHelper.error(0, 'Số điện thoại đã tồn tại');
-      }
+      const res = await this.customerService.create(item);
+      return ResponseHelper.success(res);
     } catch (error) {
       return ResponseHelper.error(0, error);
     }
@@ -39,12 +34,9 @@ export class MainStoreController {
   async findAll(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
-  ): Promise<ApiResponse<MainStoreEntity[]>> {
+  ): Promise<ApiResponse<CustomerEntity[]>> {
     try {
-      const [res, totalCount] = await this.mainStoreService.findAll(
-        page,
-        limit,
-      );
+      const [res, totalCount] = await this.customerService.findAll(page, limit);
       return {
         statusCode: 200,
         message: 'Thành công!',
@@ -61,9 +53,9 @@ export class MainStoreController {
   }
 
   @Get(':id')
-  async findOne(@Param() param): Promise<ApiResponse<MainStoreEntity[]>> {
+  async findOne(@Param() param): Promise<ApiResponse<CustomerEntity[]>> {
     try {
-      const res = await this.mainStoreService.findOne(param.id);
+      const res = await this.customerService.findOne(param.id);
       return ResponseHelper.success(res);
     } catch (error) {
       return ResponseHelper.error(0, error);
@@ -71,10 +63,10 @@ export class MainStoreController {
   }
   @Put()
   async update(
-    @Body() item: MainStoreEntity,
+    @Body() item: CustomerEntity,
   ): Promise<ApiResponse<UpdateResult>> {
     try {
-      const res = await this.mainStoreService.update(item);
+      const res = await this.customerService.update(item);
       return ResponseHelper.success(res);
     } catch (error) {
       return ResponseHelper.error(0, error);
@@ -84,7 +76,7 @@ export class MainStoreController {
   @Delete(':id')
   async remove(@Param() param) {
     try {
-      const res = await this.mainStoreService.remove(param.id);
+      const res = await this.customerService.remove(param.id);
       return ResponseHelper.success(res);
     } catch (error) {
       return ResponseHelper.error(0, error);

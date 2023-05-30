@@ -2,14 +2,14 @@ import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Long, Repository } from 'typeorm';
 import { UpdateResult, DeleteResult } from  'typeorm';
-import { MainStoreEntity } from './entities/main-store.entity';
+import { CustomerEntity } from './customer.entity/customer.entity';
 
 @Injectable()
-export class MainStoreService {
+export class CustomerService {
 
-  constructor(@InjectRepository(MainStoreEntity) private repository: Repository<MainStoreEntity>) { }
+  constructor(@InjectRepository(CustomerEntity) private repository: Repository<CustomerEntity>) { }
 
-    async findAll(page: number, limit: number): Promise<[MainStoreEntity[],number]> {
+    async findAll(page: number, limit: number): Promise<[CustomerEntity[],number]> {
         const skip = (page - 1) * limit;
         const [res, totalCount] = await this.repository.findAndCount({
           skip,
@@ -19,17 +19,17 @@ export class MainStoreService {
         return [res, totalCount];
     }
 
-    async findOne(_id: number): Promise<MainStoreEntity[]> {
+    async findOne(_id: number): Promise<CustomerEntity[]> {
         return await this.repository.find({
             where: [{ "id": _id }]
         });
     }
-    async create(item: MainStoreEntity): Promise<MainStoreEntity>  {
+    async create(item: CustomerEntity): Promise<CustomerEntity>  {
         item.createAt = Date.now().toString()
         item.updateAt = Date.now().toString()
         return await this.repository.save(item)
     }
-    async update(item: MainStoreEntity): Promise<UpdateResult> {
+    async update(item: CustomerEntity): Promise<UpdateResult> {
         item.updateAt = Date.now().toString()
         return await this.repository.update(item.id, item)
     }
@@ -37,16 +37,7 @@ export class MainStoreService {
     async remove(id: number): Promise<DeleteResult> {
         return await this.repository.delete(id);
     }
-    async findPhonePassword(phone: string, password: string): Promise<MainStoreEntity[]> {
-        return await this.repository.find({
-            where: [{ "phone": phone, "password":password }]
-        });
-    }
-    async findByPhone(phone: string): Promise<MainStoreEntity[]> {
-        return await this.repository.find({
-            where: [{ "phone": phone}]
-        });
-    }
+
     
 
 }
