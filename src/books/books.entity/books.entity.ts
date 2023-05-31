@@ -17,7 +17,7 @@ export class BooksEntity {
   @Column({ width: 11 })
   idCustomer: number;
 
-  @Column({ nullable: false })
+  @Column({ type: 'longtext', nullable: false })
   listService: string;
 
   @Column({ width: 11 })

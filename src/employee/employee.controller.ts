@@ -15,22 +15,28 @@ import {
   import { ApiResponse } from 'helper/common/response.interface';
   import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
   import {Common} from './../../helper/common/common'
+import { MainStoreService } from 'src/main-store/main-store.service';
   
   @Controller('employee')
   export class EmployeeController {
-    constructor(private readonly service: EmployeeService) {}
+    constructor(private readonly service: EmployeeService, private readonly mainStoreService: MainStoreService) {}
   
     @Post()
     async create( @Body() item: EmployeeEntity, ): Promise<ApiResponse<EmployeeEntity>> {
 
       try {
-        item.keySearch = Common.removeAccents(item.fullName)+Common.removeAccents(item.address)+item.phone
-        const res = await this.service.create(item);
-        return ResponseHelper.success(res);
+        const mainstore = await this.mainStoreService.findById(item.store_id);
+        if (mainstore.length > 0) {
+          item.keySearch = Common.removeAccents(item.fullName)+Common.removeAccents(item.address)+item.phone
+          const res = await this.service.create(item);
+          return ResponseHelper.success(res);
+        }else {
+          return ResponseHelper.error(0, "Mã cửa hàng không tồn tại");
+        }
+        
       } catch (error) {
         return ResponseHelper.error(0, error);
       }
-   
     }
   
     @Get()

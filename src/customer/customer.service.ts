@@ -11,8 +11,6 @@ export class CustomerService {
   constructor(@InjectRepository(CustomerEntity) private repository: Repository<CustomerEntity>) { }
 
     async findAll(page: number, limit: number, param: any): Promise<[CustomerEntity[],number]> {
-        console.log(param)
-        console.log(Common.removeAccents(param.fullName))
         var where = {fullName: Like('%%')}
         if (param.fullName) {where['fullName'] = Like('%'+param.fullName+'%')} 
         if (param.status) { where['status'] = param.status }

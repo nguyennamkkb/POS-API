@@ -47,6 +47,12 @@ export class MainStoreService {
             where: [{ "phone": phone}]
         });
     }
+
+    async findById(store_id: number): Promise<MainStoreEntity[]> {
+        return await this.repository.find({
+            where: [{ "id": store_id}]
+        });
+    }
     
 
 }

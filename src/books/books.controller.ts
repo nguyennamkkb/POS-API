@@ -14,16 +14,28 @@ import { ResponseHelper } from 'helper/common/response.helper';
 import { ApiResponse } from 'helper/common/response.interface';
 import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 import { Common } from './../../helper/common/common';
+import { EmployeeService } from 'src/employee/employee.service';
+import { CustomerService } from 'src/customer/customer.service';
+import { MainStoreService } from 'src/main-store/main-store.service';
 
 @Controller('books')
 export class BooksController {
-  constructor(private readonly services: BooksService) {}
+  constructor(private readonly services: BooksService, private readonly employeeServices: EmployeeService, private readonly customerServices: CustomerService, private readonly mainStoreServices: MainStoreService ) {}
 
   @Post()
   async create(@Body() item: BooksEntity): Promise<ApiResponse<BooksEntity>> {
     try {
-      const res = await this.services.create(item);
-      return ResponseHelper.success(res);
+      const employee = await this.employeeServices.findOne(item.idEmployee)
+      const customer =  await this.customerServices.findOne(item.idCustomer)
+      const mainstore =  await this.mainStoreServices.findOne(item.store_id)
+
+      if (employee.length > 0 && customer.length > 0 && mainstore.length > 0 ) {
+        const res = await this.services.create(item);
+        return ResponseHelper.success(res);
+      }else {
+        return ResponseHelper.error(0, "Mã cửa hàng/nhân viên/khach hàng không tồn tại");
+      }
+     
     } catch (error) {
       return ResponseHelper.error(0, error);
     }
