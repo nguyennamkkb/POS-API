@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class CustomerEntity {
+export class EmployeeEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -14,26 +14,29 @@ export class CustomerEntity {
   @Column({ length: 15 })
   phone: string;
 
-  @Column({ nullable: true })
-  address: string;
+  @Column({ type: 'int', width: 1, default: 0 })
+  gender: number;
 
   @Column({ type: 'bigint', nullable: true })
   birthday: string;
 
-  @Column({ type: 'int', width: 1, default: 0 })
-  gender: number;
+  @Column({ nullable: true })
+  address: string;
+
+  @Column({ type: 'varchar', width: 150, nullable: true })
+  bankCode: string;
+
+  @Column({ type: 'varchar', width: 150, nullable: true })
+  accountNumber: string;
 
   @Column({ type: 'text', nullable: true })
   image: string;
 
-  @Column({ type: 'varchar', width: 150, nullable: true })
-  email: string;
+  @Column({ default: 1 })
+  type: number;
 
   @Column()
   keySearch: string;
-
-  @Column({ type: 'int', default: 0 })
-  loyalty: number;
 
   @Column({ default: 1 })
   status: number;

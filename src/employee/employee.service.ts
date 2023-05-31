@@ -2,18 +2,16 @@ import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Long, Repository, Like, LessThan, MoreThan } from 'typeorm';
 import { UpdateResult, DeleteResult } from  'typeorm';
-import { CustomerEntity } from './customer.entity/customer.entity';
+import { EmployeeEntity } from './employee.entity/employee.entity';
 import {Common} from './../../helper/common/common'
 
 @Injectable()
-export class CustomerService {
+export class EmployeeService {
 
-  constructor(@InjectRepository(CustomerEntity) private repository: Repository<CustomerEntity>) { }
+  constructor(@InjectRepository(EmployeeEntity) private repository: Repository<EmployeeEntity>) { }
 
-    async findAll(page: number, limit: number, param: any): Promise<[CustomerEntity[],number]> {
-        console.log(param)
-        console.log(Common.removeAccents(param.fullName))
-        var where = {fullName: Like('%%')}
+    async findAll(page: number, limit: number, param: any): Promise<[EmployeeEntity[],number]> {
+        var where = {keySearch: Like('%%')}
         if (param.fullName) {where['fullName'] = Like('%'+param.fullName+'%')} 
         if (param.status) { where['status'] = param.status }
         if (param.phone) {where['phone'] = Like('%'+param.phone+'%')} 
@@ -32,17 +30,17 @@ export class CustomerService {
         return [res, totalCount];
     }
 
-    async findOne(_id: number): Promise<CustomerEntity[]> {
+    async findOne(_id: number): Promise<EmployeeEntity[]> {
         return await this.repository.find({
             where: [{ "id": _id }]
         });
     }
-    async create(item: CustomerEntity): Promise<CustomerEntity>  {
+    async create(item: EmployeeEntity): Promise<EmployeeEntity>  {
         item.createAt = Date.now().toString()
         item.updateAt = Date.now().toString()
         return await this.repository.save(item)
     }
-    async update(item: CustomerEntity): Promise<UpdateResult> {
+    async update(item: EmployeeEntity): Promise<UpdateResult> {
         item.updateAt = Date.now().toString()
         return await this.repository.update(item.id, item)
     }
