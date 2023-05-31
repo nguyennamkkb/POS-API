@@ -29,6 +29,9 @@ export class CustomerEntity {
   @Column({ type: 'varchar', width: 150, nullable: true })
   email: string;
 
+  @Column()
+  keySearch: string;
+
   @Column({ type: 'int', default: 0 })
   loyalty: number;
 
