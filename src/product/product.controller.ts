@@ -15,7 +15,7 @@ import {
   import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
   import { Common } from './../../helper/common/common';
   
-  @Controller('books')
+  @Controller('products')
   export class ProductController {
     constructor(private readonly services: ProductService) {}
   
