@@ -1,8 +1,10 @@
 # compiled output
 /dist
 /node_modules
-/config
 
+
+# matches any files and directories with the name test
+/config/database.config.ts
 # Logs
 logs
 *.log
@@ -14,7 +16,7 @@ lerna-debug.log*
 
 # OS
 .DS_Store
-
+/config/database.config.ts
 # Tests
 /coverage
 /.nyc_output
@@ -27,7 +29,7 @@ lerna-debug.log*
 *.launch
 .settings/
 *.sublime-workspace
-
+/config/database.config.ts
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
