@@ -11,4 +11,5 @@ export const databaseConfig = {
     synchronize: true,
 };
 //asdasdadaasdsdasdadas Nam
-///asdasd
+///asdasd asdasd asd asd 
+//asdasd
