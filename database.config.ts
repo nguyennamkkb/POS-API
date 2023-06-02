@@ -10,6 +10,3 @@ export const databaseConfig = {
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true,
 };
-//asdasdadaasdsdasdadas Nam
-///asdasd asdasd asd asd 
-//asdasd

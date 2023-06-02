@@ -6,7 +6,7 @@ import { CustomerModule } from './customer/customer.module';
 import { EmployeeModule } from './employee/employee.module';
 import { BooksModule } from './books/books.module';
 import { ProductModule } from './product/product.module';
-import {databaseConfig} from './../config/database.config'
+import {databaseConfig} from '../database.config'
 
 @Module({
   imports: [
