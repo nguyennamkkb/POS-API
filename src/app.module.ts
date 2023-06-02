@@ -6,6 +6,7 @@ import { CustomerModule } from './customer/customer.module';
 import { EmployeeModule } from './employee/employee.module';
 import { BooksModule } from './books/books.module';
 import { ProductModule } from './product/product.module';
+import {databaseConfig} from './../config/database.config'
 
 @Module({
   imports: [
@@ -14,8 +15,9 @@ import { ProductModule } from './product/product.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'root',
+      password: databaseConfig.password,
       database: 'pos_db',
+      // database: 'pos-api.1A',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
