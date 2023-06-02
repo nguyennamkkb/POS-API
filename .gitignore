@@ -36,5 +36,3 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 
-database.config.ts
-database.config.ts
