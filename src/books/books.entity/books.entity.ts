@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { EmployeeEntity } from 'src/employee/employee.entity/employee.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class BooksEntity {
@@ -31,4 +32,9 @@ export class BooksEntity {
 
   @Column({ type: 'bigint' })
   updateAt: string;
+  
+  @OneToOne((idEmployee) => EmployeeEntity, employee => employee.id)
+ 
+  @JoinColumn({ name: 'name' })
+  employee: EmployeeEntity;
 }

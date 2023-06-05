@@ -5,7 +5,7 @@ export const databaseConfig = {
     host: 'localhost',
     port: 3306,
     username: 'root',
-    password: 'root',
+    password: '',
     // password: 'pos-api.1A',
     database: 'pos_db',
     entities: [__dirname + '/**/*.entity{.ts,.js}'],

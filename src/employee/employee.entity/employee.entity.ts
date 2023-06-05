@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { BooksEntity } from 'src/books/books.entity/books.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class EmployeeEntity {
@@ -46,4 +47,7 @@ export class EmployeeEntity {
 
   @Column({ type: 'bigint' })
   updateAt: string;
+
+  @OneToMany(() => BooksEntity, (book) => book.employee) // specify inverse side as a second parameter
+  books: BooksEntity[]
 }

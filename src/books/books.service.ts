@@ -22,6 +22,9 @@ export class BooksService {
             where: where,
             skip,
             take: limit,
+            relations:{
+                employee:true
+            }
         });
         return [res, totalCount];
     }
