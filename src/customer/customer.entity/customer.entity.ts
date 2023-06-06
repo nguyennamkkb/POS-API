@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { BooksEntity } from 'src/books/books.entity/books.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
 
 @Entity()
 export class CustomerEntity {
@@ -43,4 +44,8 @@ export class CustomerEntity {
 
   @Column({ type: 'bigint' })
   updateAt: string;
+
+  @OneToOne(() => BooksEntity, (book) => book.customer) // specify inverse side as a second parameter
+  books: BooksEntity
+
 }

@@ -23,7 +23,8 @@ export class BooksService {
             skip,
             take: limit,
             relations:{
-                employee:true
+                employee: true,
+                customer: true
             }
         });
         return [res, totalCount];

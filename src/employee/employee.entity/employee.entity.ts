@@ -48,6 +48,6 @@ export class EmployeeEntity {
   @Column({ type: 'bigint' })
   updateAt: string;
 
-  @OneToMany(() => BooksEntity, (book) => book.employee) // specify inverse side as a second parameter
-  books: BooksEntity[]
+  @OneToOne(() => BooksEntity, (book) => book.employee) // specify inverse side as a second parameter
+  books: BooksEntity
 }

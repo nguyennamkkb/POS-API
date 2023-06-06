@@ -1,3 +1,4 @@
+import { CustomerEntity } from 'src/customer/customer.entity/customer.entity';
 import { EmployeeEntity } from 'src/employee/employee.entity/employee.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 
@@ -33,8 +34,12 @@ export class BooksEntity {
   @Column({ type: 'bigint' })
   updateAt: string;
   
-  @OneToOne((idEmployee) => EmployeeEntity, employee => employee.id)
- 
-  @JoinColumn({ name: 'name' })
+  @OneToOne(() => EmployeeEntity, employee => employee.books)
+  @JoinColumn({ name: 'idEmployee' })
   employee: EmployeeEntity;
+
+    
+  @OneToOne(() => CustomerEntity, customer => customer.books)
+  @JoinColumn({name: 'idCustomer'})
+  customer: CustomerEntity;
 }
