@@ -20,7 +20,7 @@ export class BooksEntity {
   idCustomer: number;
 
   @Column({ type: 'longtext', nullable: false })
-  listService: string;
+  listService: String;
 
   @Column({ width: 11 })
   amount: number;
@@ -34,12 +34,12 @@ export class BooksEntity {
   @Column({ type: 'bigint' })
   updateAt: string;
   
-  @OneToOne(() => EmployeeEntity, employee => employee.books)
+  @ManyToOne(() => EmployeeEntity, employee => employee.books)
   @JoinColumn({ name: 'idEmployee' })
   employee: EmployeeEntity;
 
     
-  @OneToOne(() => CustomerEntity, customer => customer.books)
+  @ManyToOne(() => CustomerEntity, customer => customer.books)
   @JoinColumn({name: 'idCustomer'})
   customer: CustomerEntity;
 }
