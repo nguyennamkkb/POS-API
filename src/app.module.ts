@@ -15,7 +15,7 @@ import {databaseConfig} from '../config/database.config'
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: databaseConfig.password,
+      password: 'pos-api.1A',
       database: 'pos_db',
       // database: 'pos-api.1A',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
