@@ -17,6 +17,7 @@ export class BooksService {
         if (param.idEmployee) {where['idEmployee'] = param.idEmployee} 
         if (param.from) {where['start'] = MoreThan(param.from)} 
         if (param.to) {where['start'] = LessThan(param.to)} 
+        if (param.status) {where['status'] = param.status} 
         const skip = (page - 1) * limit;
         const [res, totalCount] = await this.repository.findAndCount({
             where: where,

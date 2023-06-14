@@ -14,6 +14,7 @@ export class ProductService {
         let where = {}
         if (param.store_id) {where['store_id'] = param.store_id} 
         if (param.name) {where['name'] = Like('%'+param.name+'%')} 
+        if (param.status) {where['status'] = param.status} 
         const skip = (page - 1) * limit;
         const [res, totalCount] = await this.repository.findAndCount({
             where: where,
